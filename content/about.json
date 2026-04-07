@@ -1,0 +1,12 @@
+{
+  "tag": "About Us",
+  "title": "Family-owned, customer-first.",
+  "description": "At MG Appliance, we believe buying an appliance shouldn't be stressful. We're a family-owned retailer built on honest pricing, a huge selection, and treating every customer like a neighbor. Need a new fridge, stove, washer, or dryer? We'll help you find the right fit. Appliance acting up? Our repair team can get it running again. Sales and service — all under one roof.",
+  "image": "gallery/2023-03-03.webp",
+  "image_alt": "MG Appliance showroom — rows of French-door refrigerators",
+  "stats": [
+    { "value": "Sales", "label": "Huge selection of appliances" },
+    { "value": "Repair", "label": "Expert appliance service" },
+    { "value": "Family", "label": "Owned & operated" }
+  ]
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Sent — MG Appliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue: #1a5096;
+  --blue-dark: #133b6f;
+  --yellow: #f0b932;
+  --yellow-hover: #d9a529;
+  --white: #ffffff;
+  --bg: #f5f7fa;
+  --dark: #1a1a1a;
+  --text: #444;
+  --text-light: #666;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+.thank-you {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.thank-you-card {
+  max-width: 520px; width: 100%;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 56px 40px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.thank-you-logo {
+  background: var(--white);
+  display: inline-block;
+  margin-bottom: 32px;
+  line-height: 0;
+}
+.thank-you-logo img { height: 72px; width: auto; }
+
+.check-icon {
+  width: 64px; height: 64px;
+  background: #e8f5e9;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  color: #2e7d32;
+  font-size: 1.8rem;
+}
+
+.thank-you-card h1 {
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--dark); margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.thank-you-card p {
+  font-size: 1rem; color: var(--text-light);
+  line-height: 1.65; margin-bottom: 8px;
+}
+
+.thank-you-card .phone-link {
+  display: inline-block; margin-top: 16px;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--blue); text-decoration: none;
+}
+.thank-you-card .phone-link:hover { text-decoration: underline; }
+
+.thank-you-actions {
+  margin-top: 32px;
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block; padding: 14px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem; font-weight: 600;
+  border-radius: 6px; text-decoration: none;
+  transition: all 0.25s; cursor: pointer; border: none;
+}
+.btn-yellow { background: var(--yellow); color: var(--dark); }
+.btn-yellow:hover { background: var(--yellow-hover); }
+.btn-outline-dark {
+  background: transparent; color: var(--dark);
+  border: 1.5px solid var(--dark);
+}
+.btn-outline-dark:hover { background: var(--dark); color: var(--white); }
+
+footer {
+  background: var(--dark); color: rgba(255,255,255,0.5);
+  padding: 24px; text-align: center; font-size: 0.8rem;
+}
+</style>
+</head>
+<body>
+
+<div class="thank-you">
+  <div class="thank-you-card">
+    <div class="thank-you-logo">
+      <img src="mglogo.png" alt="MG Appliance">
+    </div>
+    <div class="check-icon">&#10003;</div>
+    <h1>Message received!</h1>
+    <p>Thank you for reaching out to MG Appliance. We'll get back to you as soon as possible.</p>
+    <p>Need a faster answer? Give us a call:</p>
+    <a href="tel:6828411440" class="phone-link">682-841-1440</a>
+    <div class="thank-you-actions">
+      <a href="index.html" class="btn btn-yellow">Back to Home</a>
+      <a href="index.html#gallery" class="btn btn-outline-dark">Browse Appliances</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 MG Appliance. All rights reserved. &nbsp;|&nbsp; Family-Owned & Operated
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "tag": "Our Selection",
+  "title": "Huge inventory, great prices.",
+  "description": "From refrigerators and stoves to washers and dryers — we carry top brands at prices you'll love. Plus expert repair when you need it.",
+  "images": [
+    { "image": "gallery/unnamed.webp", "alt": "MG Appliance showroom floor with stoves, washers, and dryers" },
+    { "image": "gallery/2023-03-03.webp", "alt": "French-door refrigerators lineup" },
+    { "image": "gallery/18119047_1694695430547012_1917075436568549560_n.webp", "alt": "Stainless steel refrigerators in stock" },
+    { "image": "gallery/unnamed (1).webp", "alt": "Stainless steel ranges and ovens" },
+    { "image": "gallery/2025-12-10.webp", "alt": "Stoves and ranges on display" },
+    { "image": "gallery/2025-12-10 (1).webp", "alt": "Top-load washers and dryers" },
+    { "image": "gallery/2024-02-11.webp", "alt": "Front-load washers" },
+    { "image": "gallery/63469554669__E6F81DED-7679-469F-BB27-2930CA78794F.webp", "alt": "Front-load washer and dryer wall" }
+  ]
+}

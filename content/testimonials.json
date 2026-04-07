@@ -1,0 +1,30 @@
+{
+  "tag": "Reviews",
+  "title": "What our customers say.",
+  "reviews": [
+    {
+      "stars": 5,
+      "quote": "The staff is so honest and not pushy at all! Ana was so helpful and kind. The prices are really good. They carry top brand appliances at affordable prices. I'd you don't mind a scratch you can get stuff even cheaper! I love this store!",
+      "name": "Julie Mccanless",
+      "source": "Google Review"
+    },
+    {
+      "stars": 5,
+      "quote": "Helped me with a repair on my gas stove instead of replacing it - super friendly staff, great technician, speedy service! The low cost of the repair was a very pleasant surprise to me!",
+      "name": "Georgew Cripps",
+      "source": "Google Review"
+    },
+    {
+      "stars": 5,
+      "quote": "Had a great experience buying a dryer here. Great customer service, friendly and very knowledgeable staff! Will recommend to all my family!",
+      "name": "Derrick Benson",
+      "source": "Google Review"
+    },
+    {
+      "stars": 5,
+      "quote": "Bought a nice Samsung Washer in excellent condition. Karla helped with the purchase she even tested the washer for me. I would highly recommend to a friend to check out their appliances.",
+      "name": "Gitonga Wa Ngunjiri",
+      "source": "Google Review"
+    }
+  ]
+}

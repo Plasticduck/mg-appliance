@@ -1,0 +1,114 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "gallery"
+public_folder: "gallery"
+
+collections:
+  # ── Business Settings ──
+  - name: "settings"
+    label: "Business Info"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "content/settings.json"
+        fields:
+          - { label: "Business Name", name: "business_name", widget: "string" }
+          - { label: "Phone (display)", name: "phone", widget: "string", hint: "How the phone number appears on the site, e.g. 682-841-1440" }
+          - { label: "Phone (raw digits)", name: "phone_raw", widget: "string", hint: "Digits only for tel: links, e.g. 6828411440" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Hours", name: "hours", widget: "text", hint: "Use new lines to separate days" }
+          - { label: "Form Email", name: "email", widget: "string", hint: "Contact form submissions go here" }
+          - { label: "Facebook URL", name: "facebook_url", widget: "string", required: false }
+          - { label: "Google Review URL", name: "google_review_url", widget: "string", required: false, hint: "Full Google review link with Place ID" }
+          - { label: "Footer Tagline", name: "footer_tagline", widget: "text" }
+
+  # ── Hero Section ──
+  - name: "hero"
+    label: "Hero Section"
+    files:
+      - name: "hero"
+        label: "Hero"
+        file: "content/hero.json"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string", hint: "First line of the big heading" }
+          - { label: "Headline Highlight", name: "headline_highlight", widget: "string", hint: "Yellow highlighted text (second line)" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Button 1 Text", name: "cta1_text", widget: "string" }
+          - { label: "Button 1 Link", name: "cta1_link", widget: "string" }
+          - { label: "Button 2 Text", name: "cta2_text", widget: "string" }
+          - { label: "Button 2 Link", name: "cta2_link", widget: "string" }
+          - { label: "Hero Image", name: "image", widget: "image" }
+          - { label: "Image Alt Text", name: "image_alt", widget: "string" }
+
+  # ── About Section ──
+  - name: "about"
+    label: "About Section"
+    files:
+      - name: "about"
+        label: "About"
+        file: "content/about.json"
+        fields:
+          - { label: "Section Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Photo", name: "image", widget: "image" }
+          - { label: "Photo Alt Text", name: "image_alt", widget: "string" }
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            max: 3
+            fields:
+              - { label: "Value", name: "value", widget: "string", hint: "e.g. Sales, Repair, Family" }
+              - { label: "Label", name: "label", widget: "string" }
+
+  # ── Gallery Section ──
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - name: "gallery"
+        label: "Gallery"
+        file: "content/gallery.json"
+        fields:
+          - { label: "Section Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            fields:
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Alt Text", name: "alt", widget: "string" }
+
+  # ── Testimonials ──
+  - name: "testimonials"
+    label: "Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "content/testimonials.json"
+        fields:
+          - { label: "Section Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Reviews"
+            name: "reviews"
+            widget: "list"
+            fields:
+              - { label: "Stars (1-5)", name: "stars", widget: "number", min: 1, max: 5, value_type: "int" }
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Customer Name", name: "name", widget: "string" }
+              - { label: "Source", name: "source", widget: "string", default: "Google Review" }
+
+  # ── CTA Banner ──
+  - name: "cta"
+    label: "Call-to-Action Banner"
+    files:
+      - name: "cta"
+        label: "CTA Banner"
+        file: "content/cta.json"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Button Text", name: "button_text", widget: "string" }
+          - { label: "Button Link", name: "button_link", widget: "string" }
