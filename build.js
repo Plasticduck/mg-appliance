@@ -567,11 +567,9 @@ ${reviewCards}
         </div>
       </div>
       <div class="reveal">
-        <form class="contact-form" id="contactForm" action="https://formsubmit.co/${esc(settings.email)}" method="POST" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="_subject" value="New ${esc(settings.business_name)} Website Inquiry">
-          <input type="hidden" name="_next" value="https://mg-appliance.netlify.app/thank-you.html">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" style="display:none">
+        <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="bot-field" style="display:none">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Name</label>
@@ -660,7 +658,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Contact form (fetch-based, no redirect)
+// Contact form (Netlify Forms, fetch-based, no redirect)
 function handleSubmit(e) {
   e.preventDefault();
   var form = document.getElementById('contactForm');
@@ -671,10 +669,10 @@ function handleSubmit(e) {
   error.style.display = 'none';
   btn.disabled = true;
   btn.textContent = 'Sending...';
-  fetch(form.action, {
+  fetch('/', {
     method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(new FormData(form)).toString()
   }).then(function(res) {
     if (res.ok) {
       success.style.display = 'block';
