@@ -1,0 +1,25 @@
+{
+  "tag": "Financing",
+  "title": "Flexible financing options.",
+  "description": "Can't pay all at once? No problem. We partner with trusted financing providers so you can get the appliances you need today and pay over time.",
+  "options": [
+    {
+      "name": "Acima Leasing",
+      "url": "https://apply.acima.com/lease?app_id=lo&dasrc=web&davuid=1003641773854073550&lang=en&location_guid=loca-0da20951-34b6-4d8a-a001-5efd5c541136",
+      "logo": "logos/acima.png",
+      "logo_height": 170
+    },
+    {
+      "name": "Snap Finance",
+      "url": "https://getsnap.snapfinance.com/lease/en-US/consumer/apply?ep=banner&paramId=Hq1qQmOsEuVFOlP6bdRg2D3+xnW9U1eKtIkrDRYxxSNWnLK4/6jHOHNiyZotsCgF/3pi1B0jPUYsLVeBzQmQuvlZqQ4FG6tUw3xkBF+Ur68=",
+      "logo": "logos/snap.jpg",
+      "logo_height": 56
+    },
+    {
+      "name": "American First Finance",
+      "url": "https://americanfirstfinance.com/app/application",
+      "logo": "logos/aff.png",
+      "logo_height": 70
+    }
+  ]
+}

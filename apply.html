@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employment Application — MG Appliance</title>
+<meta name="description" content="Apply for a job at MG Appliance. Now hiring at our Fort Worth and Wichita Falls, TX locations. Complete our online employment application.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="vendor/pdf-lib.min.js" defer></script>
+<script src="apply-pdf.js" defer></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue: #1a5096;
+  --blue-dark: #133b6f;
+  --yellow: #f0b932;
+  --yellow-hover: #d9a529;
+  --white: #ffffff;
+  --bg: #f5f7fa;
+  --dark: #1a1a1a;
+  --text: #444;
+  --text-light: #666;
+  --border: #e0e4ea;
+  --red: #c62828;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== HEADER ========== */
+.app-header { background: var(--blue); padding: 20px 24px; }
+.app-header-inner {
+  max-width: 900px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.app-logo {
+  background: var(--white); border-radius: 8px;
+  padding: 6px 12px; display: inline-block; line-height: 0;
+}
+.app-logo img { height: 56px; width: auto; display: block; }
+.app-header a.back-link {
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  font-size: 0.9rem; font-weight: 500;
+}
+.app-header a.back-link:hover { color: var(--white); }
+
+/* ========== INTRO ========== */
+.app-intro {
+  background: var(--blue-dark); color: var(--white);
+  padding: 48px 24px;
+}
+.app-intro-inner { max-width: 900px; margin: 0 auto; }
+.app-intro .tag {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--yellow); margin-bottom: 10px;
+}
+.app-intro h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700;
+  color: var(--white); line-height: 1.15; letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+.app-intro p {
+  font-size: 0.98rem; color: rgba(255,255,255,0.82);
+  max-width: 640px; margin-bottom: 10px;
+}
+.app-intro p:last-child { margin-bottom: 0; }
+
+/* ========== FORM SHELL ========== */
+.app-main { padding: 48px 24px 72px; }
+.app-form { max-width: 900px; margin: 0 auto; }
+
+.form-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 28px 32px;
+  margin-bottom: 20px;
+}
+.section-heading {
+  display: block; width: 100%;
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--blue);
+  padding-bottom: 12px; margin-bottom: 22px;
+  border-bottom: 2px solid var(--yellow);
+}
+.section-note {
+  font-size: 0.86rem; color: var(--text-light);
+  margin-top: -12px; margin-bottom: 20px; line-height: 1.55;
+}
+
+/* ========== FIELDS ========== */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field label, .group-label {
+  font-size: 0.8rem; font-weight: 600; color: var(--dark);
+  letter-spacing: 0.01em;
+}
+.req { color: var(--red); font-weight: 700; }
+.hint { font-size: 0.78rem; color: var(--text-light); font-weight: 400; }
+
+input[type="text"], input[type="tel"], input[type="email"], input[type="date"],
+input[type="file"], select, textarea {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem; padding: 11px 14px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); color: var(--dark);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26,80,150,0.1);
+}
+input[type="file"] { padding: 9px 12px; background: var(--white); }
+textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+
+.row { display: grid; gap: 16px; margin-bottom: 18px; }
+.row:last-child { margin-bottom: 0; }
+.row .field { margin-bottom: 0; }
+.row-2 { grid-template-columns: 1fr 1fr; }
+.row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.row-city { grid-template-columns: 2fr 1fr 1fr; }
+
+/* ========== CHOICE CONTROLS ========== */
+.choice-group { margin-bottom: 18px; }
+.choice-group:last-child { margin-bottom: 0; }
+.choice-group .group-label { display: block; margin-bottom: 10px; }
+.choices { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); cursor: pointer;
+  font-size: 0.88rem; font-weight: 500; color: var(--text);
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.choice:hover { border-color: var(--blue); }
+.choice input { accent-color: var(--blue); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+.choice:has(input:checked) {
+  border-color: var(--blue); background: rgba(26,80,150,0.06); color: var(--dark);
+}
+
+/* Location picker cards */
+.location-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.location-choice {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 20px; border: 1.5px solid var(--border); border-radius: 8px;
+  background: var(--bg); cursor: pointer; transition: all 0.2s;
+}
+.location-choice:hover { border-color: var(--blue); }
+.location-choice:has(input:checked) {
+  border-color: var(--blue); background: rgba(26,80,150,0.06);
+  box-shadow: 0 2px 12px rgba(26,80,150,0.1);
+}
+.location-choice input { accent-color: var(--blue); width: 18px; height: 18px; margin-top: 3px; cursor: pointer; flex-shrink: 0; }
+.location-choice .loc-name { font-size: 1.02rem; font-weight: 700; color: var(--dark); line-height: 1.3; }
+.location-choice .loc-addr { font-size: 0.82rem; color: var(--text-light); margin-top: 4px; }
+
+/* ========== REPEATING BLOCKS ========== */
+.block {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 22px; margin-bottom: 16px; background: #fbfcfd;
+}
+.block:last-child { margin-bottom: 0; }
+.block-title {
+  font-size: 0.9rem; font-weight: 700; color: var(--dark);
+  margin-bottom: 16px;
+}
+.block-title .optional { font-weight: 400; color: var(--text-light); font-size: 0.82rem; }
+
+details.block-toggle { margin-bottom: 16px; }
+details.block-toggle > summary {
+  list-style: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.88rem; font-weight: 600; color: var(--blue);
+  padding: 10px 18px; border: 1px dashed var(--border); border-radius: 6px;
+  background: var(--white); transition: border-color 0.2s;
+}
+details.block-toggle > summary::-webkit-details-marker { display: none; }
+details.block-toggle > summary:hover { border-color: var(--blue); }
+details.block-toggle > summary::before { content: "+"; font-size: 1.1rem; line-height: 1; }
+details.block-toggle[open] > summary { margin-bottom: 16px; }
+details.block-toggle[open] > summary::before { content: "\2212"; }
+
+/* ========== CERTIFICATION ========== */
+.legal-text {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; font-size: 0.86rem; color: var(--text); line-height: 1.65;
+  margin-bottom: 20px;
+}
+.legal-text p { margin-bottom: 12px; }
+.legal-text p:last-child { margin-bottom: 0; }
+
+.agree {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; border: 1.5px solid var(--border); border-radius: 8px;
+  background: var(--bg); cursor: pointer; margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+.agree:has(input:checked) { border-color: var(--blue); background: rgba(26,80,150,0.06); }
+.agree input { accent-color: var(--blue); width: 18px; height: 18px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
+.agree span { font-size: 0.88rem; color: var(--dark); font-weight: 500; line-height: 1.55; }
+
+/* ========== SIGNATURE PAD ========== */
+.sig-wrap { margin-bottom: 18px; }
+.sig-wrap > .group-label { display: block; margin-bottom: 10px; }
+
+.sig-tabs { display: flex; gap: 6px; margin-bottom: -1px; position: relative; z-index: 1; }
+.sig-tab {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 600; color: var(--text-light);
+  padding: 9px 20px; cursor: pointer;
+  background: var(--bg); border: 1px solid var(--border);
+  border-bottom-color: transparent;
+  border-radius: 6px 6px 0 0;
+  transition: color 0.2s, background 0.2s;
+}
+.sig-tab:hover { color: var(--blue); }
+.sig-tab[aria-selected="true"] {
+  background: var(--white); color: var(--blue);
+  border-color: var(--border); border-bottom-color: var(--white);
+}
+
+.sig-pad {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0 8px 8px 8px;
+  height: 190px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sig-pad.is-active { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,80,150,0.1); }
+.sig-pad.has-error { border-color: var(--red); }
+
+/* Signing line + DocuSign-style mark */
+.sig-baseline {
+  position: absolute; left: 40px; right: 32px; bottom: 52px;
+  border-bottom: 1.5px solid #b8c0cc;
+  pointer-events: none;
+}
+.sig-mark {
+  position: absolute; left: 16px; bottom: 44px;
+  font-size: 1.3rem; font-weight: 700; color: var(--blue);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.sig-placeholder {
+  position: absolute; left: 48px; bottom: 62px;
+  font-size: 0.85rem; color: #aab2bf;
+  pointer-events: none; user-select: none;
+  transition: opacity 0.2s;
+}
+.sig-pad.has-ink .sig-placeholder { opacity: 0; }
+
+.sig-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  touch-action: none; cursor: crosshair;
+}
+.sig-pad.mode-type .sig-canvas { cursor: default; }
+
+.sig-type-row { display: none; padding: 0 0 0 0; }
+.sig-pad.mode-type ~ .sig-type-row { display: block; margin-top: 14px; }
+.sig-type-row input {
+  font-size: 1.05rem !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-style: italic;
+}
+
+.sig-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; margin-top: 10px; flex-wrap: wrap;
+}
+.sig-hint { font-size: 0.78rem; color: var(--text-light); }
+.sig-clear {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 600; color: var(--text-light);
+  background: none; border: none; cursor: pointer;
+  padding: 4px 8px; border-radius: 4px; text-decoration: underline;
+}
+.sig-clear:hover { color: var(--red); }
+
+.sig-error {
+  display: none; margin-top: 10px;
+  font-size: 0.84rem; font-weight: 500; color: var(--red);
+}
+.sig-error.visible { display: block; }
+
+/* ========== SUBMIT ========== */
+.submit-wrap { text-align: center; padding-top: 4px; }
+.btn-submit {
+  font-family: 'DM Sans', sans-serif;
+  padding: 16px 48px; background: var(--yellow); color: var(--dark);
+  border: none; border-radius: 6px; font-size: 1rem;
+  font-weight: 700; cursor: pointer; transition: background 0.25s;
+}
+.btn-submit:hover { background: var(--yellow-hover); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.submit-note { font-size: 0.82rem; color: var(--text-light); margin-top: 14px; }
+
+.honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: var(--dark); color: rgba(255,255,255,0.5);
+  padding: 32px 24px; text-align: center; font-size: 0.82rem;
+}
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+footer a:hover { color: var(--white); }
+footer .footer-sep { margin: 0 8px; color: rgba(255,255,255,0.25); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 760px) {
+  .row-2, .row-3, .row-4, .row-city, .location-choices { grid-template-columns: 1fr; }
+  .form-section { padding: 22px 18px 26px; }
+  .app-intro { padding: 36px 24px; }
+  .app-logo img { height: 44px; }
+  .btn-submit { width: 100%; }
+}
+
+/* ========== PRINT ========== */
+@media print {
+  .app-header, .app-intro, .submit-wrap, footer { display: none; }
+  body { background: var(--white); }
+  .form-section { break-inside: avoid; border-color: #ccc; margin-bottom: 12px; }
+  details.block-toggle > summary { display: none; }
+  details.block-toggle { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="app-header-inner">
+    <a href="index.html" class="app-logo"><img src="mglogo.png" alt="MG Appliance"></a>
+    <a href="index.html" class="back-link">&#8592; Back to Home</a>
+  </div>
+</header>
+
+<!-- INTRO -->
+<div class="app-intro">
+  <div class="app-intro-inner">
+    <div class="tag">Careers</div>
+    <h1>Standard Application for Employment</h1>
+    <p>It is our policy to comply with all applicable state and federal laws prohibiting discrimination in employment based on race, age, color, sex, religion, national origin, disability or other protected classifications.</p>
+    <p>Please carefully read and answer all questions. You will not be considered for employment if you fail to completely answer all the questions on this application. You may attach a r&eacute;sum&eacute;, but all questions must be answered.</p>
+  </div>
+</div>
+
+<!-- FORM -->
+<main class="app-main">
+  <form class="app-form" name="job-application" method="POST"
+        action="/application-received.html"
+        data-netlify="true" netlify-honeypot="bot-field"
+        enctype="multipart/form-data">
+
+    <input type="hidden" name="form-name" value="job-application">
+    <p class="honeypot"><label>Do not fill this out: <input name="bot-field"></label></p>
+    <input type="hidden" name="Employer" value="MG Appliance">
+
+    <!-- 1. POSITION APPLIED FOR -->
+    <section class="form-section">
+      <h2 class="section-heading">1. Position Applied For</h2>
+
+      <div class="choice-group">
+        <span class="group-label">Which location are you applying to? <span class="req">*</span></span>
+        <div class="location-choices">
+          <label class="location-choice">
+            <input type="radio" name="Location Applying To" value="Fort Worth, TX" required>
+            <span>
+              <span class="loc-name">Fort Worth</span>
+              <span class="loc-addr">2513 Warfield Ave, Fort Worth, TX 76106</span>
+            </span>
+          </label>
+          <label class="location-choice">
+            <input type="radio" name="Location Applying To" value="Wichita Falls, TX">
+            <span>
+              <span class="loc-name">Wichita Falls</span>
+              <span class="loc-addr">1912 9th St, Wichita Falls, TX 76301</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="row row-2">
+        <div class="field">
+          <label for="position">Position applying for <span class="req">*</span></label>
+          <input type="text" id="position" name="Position Applying For" required placeholder="e.g. Sales Associate, Appliance Technician, Delivery Driver">
+        </div>
+        <div class="field">
+          <label for="how-heard">How did you hear about us? <span class="hint">(optional)</span></label>
+          <input type="text" id="how-heard" name="How Did You Hear About Us" placeholder="Website, referral, walk-in, Facebook...">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PERSONAL DATA -->
+    <section class="form-section">
+      <h2 class="section-heading">2. Personal Data</h2>
+
+      <div class="row row-3">
+        <div class="field">
+          <label for="last-name">Last name <span class="req">*</span></label>
+          <input type="text" id="last-name" name="Last Name" required autocomplete="family-name">
+        </div>
+        <div class="field">
+          <label for="first-name">First name <span class="req">*</span></label>
+          <input type="text" id="first-name" name="First Name" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="middle-name">Middle name <span class="hint">(optional)</span></label>
+          <input type="text" id="middle-name" name="Middle Name" autocomplete="additional-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="address">Street address and/or mailing address <span class="req">*</span></label>
+        <input type="text" id="address" name="Street Address" required autocomplete="street-address">
+      </div>
+
+      <div class="row row-city">
+        <div class="field">
+          <label for="city">City <span class="req">*</span></label>
+          <input type="text" id="city" name="City" required autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="state">State <span class="req">*</span></label>
+          <input type="text" id="state" name="State" required maxlength="20" autocomplete="address-level1" placeholder="TX">
+        </div>
+        <div class="field">
+          <label for="zip">Zip <span class="req">*</span></label>
+          <input type="text" id="zip" name="Zip" required maxlength="10" autocomplete="postal-code" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="row row-3">
+        <div class="field">
+          <label for="home-phone">Home telephone number</label>
+          <input type="tel" id="home-phone" name="Home Phone" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="business-phone">Business telephone number</label>
+          <input type="tel" id="business-phone" name="Business Phone">
+        </div>
+        <div class="field">
+          <label for="cell-phone">Cellular telephone number <span class="req">*</span></label>
+          <input type="tel" id="cell-phone" name="Cell Phone" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email address <span class="req">*</span></label>
+        <input type="email" id="email" name="Email" required autocomplete="email" placeholder="you@example.com">
+      </div>
+
+      <div class="row row-2">
+        <div class="field">
+          <label for="start-date">Date you can start work <span class="req">*</span></label>
+          <input type="date" id="start-date" name="Date Available To Start" required>
+        </div>
+        <div class="field">
+          <label for="salary-desired">Salary desired <span class="req">*</span></label>
+          <input type="text" id="salary-desired" name="Salary Desired" required placeholder="e.g. $18/hour or negotiable">
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Do you have a High School Diploma or GED? <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="High School Diploma or GED" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="High School Diploma or GED" value="No"> No</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. POSITION INFORMATION -->
+    <section class="form-section">
+      <h2 class="section-heading">3. Position Information</h2>
+
+      <div class="choice-group">
+        <span class="group-label">Hours <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Hours" value="Full Time" required> Full Time</label>
+          <label class="choice"><input type="radio" name="Hours" value="Part Time"> Part Time</label>
+          <label class="choice"><input type="radio" name="Hours" value="Either"> Either</label>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Status <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Status" value="Regular" required> Regular</label>
+          <label class="choice"><input type="radio" name="Status" value="Temporary"> Temporary</label>
+          <label class="choice"><input type="radio" name="Status" value="Either"> Either</label>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Check all shifts you are willing to work</span>
+        <div class="choices">
+          <label class="choice"><input type="checkbox" name="Shifts Willing To Work" value="Days"> Days</label>
+          <label class="choice"><input type="checkbox" name="Shifts Willing To Work" value="Evenings"> Evenings</label>
+          <label class="choice"><input type="checkbox" name="Shifts Willing To Work" value="Swing"> Swing</label>
+          <label class="choice"><input type="checkbox" name="Shifts Willing To Work" value="Graveyard"> Graveyard</label>
+          <label class="choice"><input type="checkbox" name="Shifts Willing To Work" value="Weekends"> Weekends</label>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Are you authorized to work in the U.S. on an unrestricted basis? <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Authorized To Work In US" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Authorized To Work In US" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Have you ever been convicted of a felony? <span class="req">*</span></span>
+        <p class="hint" style="margin-bottom:10px;">Convictions will not necessarily disqualify an applicant for employment.</p>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Convicted Of A Felony" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Convicted Of A Felony" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="felony-explain">If yes, explain</label>
+        <textarea id="felony-explain" name="Felony Explanation" rows="3"></textarea>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Have you been told the essential functions of the job, or have you viewed a copy of the job description listing the essential functions of the job? <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Told Essential Functions" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Told Essential Functions" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <span class="group-label">Can you perform these essential functions of the job with or without reasonable accommodation? <span class="req">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Can Perform Essential Functions" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Can Perform Essential Functions" value="No"> No</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. QUALIFICATIONS -->
+    <section class="form-section">
+      <h2 class="section-heading">4. Qualifications</h2>
+      <p class="section-note">Please list any education or training you feel relates to the position applied for that would help you perform the work, such as schools, colleges, degrees, vocational or technical programs, and military training.</p>
+
+      <div class="block">
+        <div class="block-title">School</div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="school1-name">School name</label>
+            <input type="text" id="school1-name" name="School 1 Name">
+          </div>
+          <div class="field">
+            <label for="school1-degree">Degree</label>
+            <input type="text" id="school1-degree" name="School 1 Degree">
+          </div>
+          <div class="field">
+            <label for="school1-address">Address / City / State</label>
+            <input type="text" id="school1-address" name="School 1 Address">
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">School</div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="school2-name">School name</label>
+            <input type="text" id="school2-name" name="School 2 Name">
+          </div>
+          <div class="field">
+            <label for="school2-degree">Degree</label>
+            <input type="text" id="school2-degree" name="School 2 Degree">
+          </div>
+          <div class="field">
+            <label for="school2-address">Address / City / State</label>
+            <input type="text" id="school2-address" name="School 2 Address">
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Other <span class="optional">(vocational, technical, or military training)</span></div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="school3-name">School / program name</label>
+            <input type="text" id="school3-name" name="Other Training Name">
+          </div>
+          <div class="field">
+            <label for="school3-degree">Degree / certificate</label>
+            <input type="text" id="school3-degree" name="Other Training Degree">
+          </div>
+          <div class="field">
+            <label for="school3-address">Address / City / State</label>
+            <input type="text" id="school3-address" name="Other Training Address">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SPECIAL SKILLS -->
+    <section class="form-section">
+      <h2 class="section-heading">5. Special Skills</h2>
+      <p class="section-note">List any special skills or experience that you feel would help you in the position that you are applying for (leadership, organizations/teams, etc.).</p>
+      <div class="field">
+        <label for="special-skills" class="hint">Special skills &amp; experience</label>
+        <textarea id="special-skills" name="Special Skills" rows="5"></textarea>
+      </div>
+    </section>
+
+    <!-- 6. REFERENCES -->
+    <section class="form-section">
+      <h2 class="section-heading">6. References</h2>
+      <p class="section-note">Please list three professional references not related to you, with full name, address, phone number, and relationship. If you don't have three professional references, then list personal, unrelated references.</p>
+
+      <div class="block">
+        <div class="block-title">Reference 1</div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref1-name">Name</label>
+            <input type="text" id="ref1-name" name="Reference 1 Name">
+          </div>
+          <div class="field">
+            <label for="ref1-address">Address / City / State</label>
+            <input type="text" id="ref1-address" name="Reference 1 Address">
+          </div>
+        </div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref1-phone">Phone</label>
+            <input type="tel" id="ref1-phone" name="Reference 1 Phone">
+          </div>
+          <div class="field">
+            <label for="ref1-relationship">Relationship</label>
+            <input type="text" id="ref1-relationship" name="Reference 1 Relationship">
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Reference 2</div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref2-name">Name</label>
+            <input type="text" id="ref2-name" name="Reference 2 Name">
+          </div>
+          <div class="field">
+            <label for="ref2-address">Address / City / State</label>
+            <input type="text" id="ref2-address" name="Reference 2 Address">
+          </div>
+        </div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref2-phone">Phone</label>
+            <input type="tel" id="ref2-phone" name="Reference 2 Phone">
+          </div>
+          <div class="field">
+            <label for="ref2-relationship">Relationship</label>
+            <input type="text" id="ref2-relationship" name="Reference 2 Relationship">
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Reference 3</div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref3-name">Name</label>
+            <input type="text" id="ref3-name" name="Reference 3 Name">
+          </div>
+          <div class="field">
+            <label for="ref3-address">Address / City / State</label>
+            <input type="text" id="ref3-address" name="Reference 3 Address">
+          </div>
+        </div>
+        <div class="row row-2">
+          <div class="field">
+            <label for="ref3-phone">Phone</label>
+            <input type="tel" id="ref3-phone" name="Reference 3 Phone">
+          </div>
+          <div class="field">
+            <label for="ref3-relationship">Relationship</label>
+            <input type="text" id="ref3-relationship" name="Reference 3 Relationship">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. WORK HISTORY -->
+    <section class="form-section">
+      <h2 class="section-heading">7. Work History</h2>
+      <p class="section-note">Start with your present or most recent employment and work back. Include paid and unpaid positions.</p>
+
+      <!-- JOB 1 -->
+      <div class="block">
+        <div class="block-title">Job #1 &mdash; Present or most recent</div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job1-title">Job title</label>
+            <input type="text" id="job1-title" name="Job 1 Title">
+          </div>
+          <div class="field">
+            <label for="job1-start">Start date</label>
+            <input type="date" id="job1-start" name="Job 1 Start Date">
+          </div>
+          <div class="field">
+            <label for="job1-end">End date</label>
+            <input type="date" id="job1-end" name="Job 1 End Date">
+          </div>
+        </div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job1-company">Company name</label>
+            <input type="text" id="job1-company" name="Job 1 Company">
+          </div>
+          <div class="field">
+            <label for="job1-supervisor">Supervisor's name</label>
+            <input type="text" id="job1-supervisor" name="Job 1 Supervisor">
+          </div>
+          <div class="field">
+            <label for="job1-phone">Phone number</label>
+            <input type="tel" id="job1-phone" name="Job 1 Phone">
+          </div>
+        </div>
+        <div class="row row-city">
+          <div class="field">
+            <label for="job1-city">City</label>
+            <input type="text" id="job1-city" name="Job 1 City">
+          </div>
+          <div class="field">
+            <label for="job1-state">State</label>
+            <input type="text" id="job1-state" name="Job 1 State" maxlength="20">
+          </div>
+          <div class="field">
+            <label for="job1-zip">Zip</label>
+            <input type="text" id="job1-zip" name="Job 1 Zip" maxlength="10">
+          </div>
+        </div>
+        <div class="field">
+          <label for="job1-duties">Duties</label>
+          <textarea id="job1-duties" name="Job 1 Duties" rows="3"></textarea>
+        </div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job1-reason">Reason for leaving</label>
+            <input type="text" id="job1-reason" name="Job 1 Reason For Leaving">
+          </div>
+          <div class="field">
+            <label for="job1-start-salary">Starting salary</label>
+            <input type="text" id="job1-start-salary" name="Job 1 Starting Salary">
+          </div>
+          <div class="field">
+            <label for="job1-end-salary">Ending salary</label>
+            <input type="text" id="job1-end-salary" name="Job 1 Ending Salary">
+          </div>
+        </div>
+        <div class="choice-group" style="margin-top:18px;">
+          <span class="group-label">May we contact your present employer?</span>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="May We Contact Present Employer" value="Yes"> Yes</label>
+            <label class="choice"><input type="radio" name="May We Contact Present Employer" value="No"> No</label>
+            <label class="choice"><input type="radio" name="May We Contact Present Employer" value="N/A"> N/A</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOB 2 -->
+      <div class="block">
+        <div class="block-title">Job #2 <span class="optional">(if applicable)</span></div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job2-title">Job title</label>
+            <input type="text" id="job2-title" name="Job 2 Title">
+          </div>
+          <div class="field">
+            <label for="job2-start">Start date</label>
+            <input type="date" id="job2-start" name="Job 2 Start Date">
+          </div>
+          <div class="field">
+            <label for="job2-end">End date</label>
+            <input type="date" id="job2-end" name="Job 2 End Date">
+          </div>
+        </div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job2-company">Company name</label>
+            <input type="text" id="job2-company" name="Job 2 Company">
+          </div>
+          <div class="field">
+            <label for="job2-supervisor">Supervisor's name</label>
+            <input type="text" id="job2-supervisor" name="Job 2 Supervisor">
+          </div>
+          <div class="field">
+            <label for="job2-phone">Phone number</label>
+            <input type="tel" id="job2-phone" name="Job 2 Phone">
+          </div>
+        </div>
+        <div class="row row-city">
+          <div class="field">
+            <label for="job2-city">City</label>
+            <input type="text" id="job2-city" name="Job 2 City">
+          </div>
+          <div class="field">
+            <label for="job2-state">State</label>
+            <input type="text" id="job2-state" name="Job 2 State" maxlength="20">
+          </div>
+          <div class="field">
+            <label for="job2-zip">Zip</label>
+            <input type="text" id="job2-zip" name="Job 2 Zip" maxlength="10">
+          </div>
+        </div>
+        <div class="field">
+          <label for="job2-duties">Duties</label>
+          <textarea id="job2-duties" name="Job 2 Duties" rows="3"></textarea>
+        </div>
+        <div class="row row-3">
+          <div class="field">
+            <label for="job2-reason">Reason for leaving</label>
+            <input type="text" id="job2-reason" name="Job 2 Reason For Leaving">
+          </div>
+          <div class="field">
+            <label for="job2-start-salary">Starting salary</label>
+            <input type="text" id="job2-start-salary" name="Job 2 Starting Salary">
+          </div>
+          <div class="field">
+            <label for="job2-end-salary">Ending salary</label>
+            <input type="text" id="job2-end-salary" name="Job 2 Ending Salary">
+          </div>
+        </div>
+      </div>
+
+      <!-- JOB 3 -->
+      <details class="block-toggle">
+        <summary>Add Job #3</summary>
+        <div class="block">
+          <div class="block-title">Job #3 <span class="optional">(if applicable)</span></div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job3-title">Job title</label>
+              <input type="text" id="job3-title" name="Job 3 Title">
+            </div>
+            <div class="field">
+              <label for="job3-start">Start date</label>
+              <input type="date" id="job3-start" name="Job 3 Start Date">
+            </div>
+            <div class="field">
+              <label for="job3-end">End date</label>
+              <input type="date" id="job3-end" name="Job 3 End Date">
+            </div>
+          </div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job3-company">Company name</label>
+              <input type="text" id="job3-company" name="Job 3 Company">
+            </div>
+            <div class="field">
+              <label for="job3-supervisor">Supervisor's name</label>
+              <input type="text" id="job3-supervisor" name="Job 3 Supervisor">
+            </div>
+            <div class="field">
+              <label for="job3-phone">Phone number</label>
+              <input type="tel" id="job3-phone" name="Job 3 Phone">
+            </div>
+          </div>
+          <div class="row row-city">
+            <div class="field">
+              <label for="job3-city">City</label>
+              <input type="text" id="job3-city" name="Job 3 City">
+            </div>
+            <div class="field">
+              <label for="job3-state">State</label>
+              <input type="text" id="job3-state" name="Job 3 State" maxlength="20">
+            </div>
+            <div class="field">
+              <label for="job3-zip">Zip</label>
+              <input type="text" id="job3-zip" name="Job 3 Zip" maxlength="10">
+            </div>
+          </div>
+          <div class="field">
+            <label for="job3-duties">Duties</label>
+            <textarea id="job3-duties" name="Job 3 Duties" rows="3"></textarea>
+          </div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job3-reason">Reason for leaving</label>
+              <input type="text" id="job3-reason" name="Job 3 Reason For Leaving">
+            </div>
+            <div class="field">
+              <label for="job3-start-salary">Starting salary</label>
+              <input type="text" id="job3-start-salary" name="Job 3 Starting Salary">
+            </div>
+            <div class="field">
+              <label for="job3-end-salary">Ending salary</label>
+              <input type="text" id="job3-end-salary" name="Job 3 Ending Salary">
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- JOB 4 -->
+      <details class="block-toggle">
+        <summary>Add Job #4</summary>
+        <div class="block">
+          <div class="block-title">Job #4 <span class="optional">(if applicable)</span></div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job4-title">Job title</label>
+              <input type="text" id="job4-title" name="Job 4 Title">
+            </div>
+            <div class="field">
+              <label for="job4-start">Start date</label>
+              <input type="date" id="job4-start" name="Job 4 Start Date">
+            </div>
+            <div class="field">
+              <label for="job4-end">End date</label>
+              <input type="date" id="job4-end" name="Job 4 End Date">
+            </div>
+          </div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job4-company">Company name</label>
+              <input type="text" id="job4-company" name="Job 4 Company">
+            </div>
+            <div class="field">
+              <label for="job4-supervisor">Supervisor's name</label>
+              <input type="text" id="job4-supervisor" name="Job 4 Supervisor">
+            </div>
+            <div class="field">
+              <label for="job4-phone">Phone number</label>
+              <input type="tel" id="job4-phone" name="Job 4 Phone">
+            </div>
+          </div>
+          <div class="row row-city">
+            <div class="field">
+              <label for="job4-city">City</label>
+              <input type="text" id="job4-city" name="Job 4 City">
+            </div>
+            <div class="field">
+              <label for="job4-state">State</label>
+              <input type="text" id="job4-state" name="Job 4 State" maxlength="20">
+            </div>
+            <div class="field">
+              <label for="job4-zip">Zip</label>
+              <input type="text" id="job4-zip" name="Job 4 Zip" maxlength="10">
+            </div>
+          </div>
+          <div class="field">
+            <label for="job4-duties">Duties</label>
+            <textarea id="job4-duties" name="Job 4 Duties" rows="3"></textarea>
+          </div>
+          <div class="row row-3">
+            <div class="field">
+              <label for="job4-reason">Reason for leaving</label>
+              <input type="text" id="job4-reason" name="Job 4 Reason For Leaving">
+            </div>
+            <div class="field">
+              <label for="job4-start-salary">Starting salary</label>
+              <input type="text" id="job4-start-salary" name="Job 4 Starting Salary">
+            </div>
+            <div class="field">
+              <label for="job4-end-salary">Ending salary</label>
+              <input type="text" id="job4-end-salary" name="Job 4 Ending Salary">
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 8. RESUME -->
+    <section class="form-section">
+      <h2 class="section-heading">8. R&eacute;sum&eacute; (Optional)</h2>
+      <p class="section-note">You may attach a r&eacute;sum&eacute;, but all questions above must still be answered. PDF, DOC, DOCX, JPG or PNG &mdash; 10&nbsp;MB max.</p>
+      <div class="field">
+        <label for="resume">Attach r&eacute;sum&eacute;</label>
+        <input type="file" id="resume" name="Resume" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+      </div>
+    </section>
+
+    <!-- 9. CERTIFICATION -->
+    <section class="form-section">
+      <h2 class="section-heading">9. Certification &amp; Signature</h2>
+
+      <div class="legal-text">
+        <p>I certify that the facts set forth in this Application for Employment are true and complete to the best of my knowledge. I understand that if I am employed, false statements, omissions or misrepresentations may result in my dismissal. I authorize the Employer to make an investigation of any of the facts set forth in this application and release the Employer from any liability. The employer may contact any listed references on this application.</p>
+        <p>I acknowledge and understand that the company is an &ldquo;at will&rdquo; employer. Therefore, any employee (regular, temporary, or other type of category employee) may resign at any time, just as the employer may terminate the employment relationship with any employee at any time, with or without cause, with or without notice to the other party.</p>
+      </div>
+
+      <label class="agree">
+        <input type="checkbox" name="Certification Agreed" value="Yes - Applicant agreed to the certification and at-will acknowledgment" required>
+        <span>I have read, understand, and agree to the certification and &ldquo;at will&rdquo; employment acknowledgment above. <span class="req">*</span></span>
+      </label>
+
+      <div class="sig-wrap">
+        <span class="group-label">Applicant signature <span class="req">*</span></span>
+
+        <div class="sig-tabs" role="tablist" aria-label="Signature method">
+          <button type="button" class="sig-tab" role="tab" aria-selected="true" data-mode="draw">Draw</button>
+          <button type="button" class="sig-tab" role="tab" aria-selected="false" data-mode="type">Type</button>
+        </div>
+
+        <div class="sig-pad mode-draw" id="sigPad">
+          <canvas class="sig-canvas" id="sigCanvas" aria-label="Signature drawing area"></canvas>
+          <span class="sig-mark" aria-hidden="true">&times;</span>
+          <div class="sig-baseline" aria-hidden="true"></div>
+          <span class="sig-placeholder" id="sigPlaceholder">Sign here using your mouse, finger, or stylus</span>
+        </div>
+
+        <div class="sig-type-row" id="sigTypeRow">
+          <input type="text" id="sig-type" placeholder="Type your full legal name" autocomplete="off" maxlength="60">
+        </div>
+
+        <div class="sig-actions">
+          <span class="sig-hint" id="sigHint">Draw your signature in the box above.</span>
+          <button type="button" class="sig-clear" id="sigClear">Clear signature</button>
+        </div>
+
+        <p class="sig-error" id="sigError">Please sign above before submitting your application.</p>
+
+        <!-- Populated on submit. The completed PDF is the document the employer
+             receives; the rest is kept as a fallback record. -->
+        <input type="file" id="app-pdf" name="Application PDF" class="visually-hidden" tabindex="-1" aria-hidden="true">
+        <input type="file" id="sig-file" name="Signature Image" class="visually-hidden" tabindex="-1" aria-hidden="true">
+        <input type="hidden" id="sig-method" name="Signature Method" value="">
+        <input type="hidden" id="sig-typed-name" name="Applicant Signature" value="">
+        <input type="hidden" id="sig-fallback" name="Signature Image Data" value="">
+        <input type="hidden" id="pdf-status" name="PDF Attached" value="">
+      </div>
+
+      <div class="row row-2">
+        <div class="field">
+          <label for="sign-date">Date <span class="req">*</span></label>
+          <input type="date" id="sign-date" name="Signature Date" required>
+        </div>
+        <div class="field"></div>
+      </div>
+    </section>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit">Submit Application</button>
+      <p class="submit-note">MG Appliance is an equal opportunity employer.</p>
+    </div>
+  </form>
+</main>
+
+<footer>
+  &copy; <span id="year">2026</span> MG Appliance. All rights reserved.
+  <span class="footer-sep">|</span>
+  <a href="tel:6828411440">Fort Worth: 682-841-1440</a>
+  <span class="footer-sep">|</span>
+  <a href="tel:9405004092">Wichita Falls: 940-500-4092</a>
+</footer>
+
+<script>
+// Prefill today's date on the signature line and keep the footer year current.
+(function () {
+  var today = new Date();
+  var iso = today.getFullYear() + '-' +
+            String(today.getMonth() + 1).padStart(2, '0') + '-' +
+            String(today.getDate()).padStart(2, '0');
+  var signDate = document.getElementById('sign-date');
+  if (signDate && !signDate.value) signDate.value = iso;
+  document.getElementById('year').textContent = today.getFullYear();
+})();
+
+// If a required field inside a collapsed disclosure panel ever fails validation, open it first.
+document.querySelector('.app-form').addEventListener('invalid', function (e) {
+  var d = e.target.closest('details');
+  if (d && !d.open) d.open = true;
+}, true);
+
+// Signature pad — draw with mouse/finger/stylus, or type a name and have it
+// rendered as a signature. Either way it is submitted as a PNG image.
+(function () {
+  var form = document.querySelector('.app-form');
+  var pad = document.getElementById('sigPad');
+  var canvas = document.getElementById('sigCanvas');
+  var ctx = canvas.getContext('2d');
+  var typeInput = document.getElementById('sig-type');
+  var placeholder = document.getElementById('sigPlaceholder');
+  var hint = document.getElementById('sigHint');
+  var errorEl = document.getElementById('sigError');
+  var fileInput = document.getElementById('sig-file');
+  var methodInput = document.getElementById('sig-method');
+  var typedNameInput = document.getElementById('sig-typed-name');
+  var fallbackInput = document.getElementById('sig-fallback');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.sig-tab'));
+
+  var SCRIPT_FONT = '"Segoe Script", "Brush Script MT", "Lucida Handwriting", "Apple Chancery", cursive';
+  var INK = '#12233d';
+
+  var mode = 'draw';
+  var strokes = [];   // array of strokes; each stroke is an array of {x, y} in CSS pixels
+  var current = null;
+  var drawing = false;
+
+  function width() { return canvas.clientWidth; }
+  function height() { return canvas.clientHeight; }
+
+  function hasSignature() {
+    return mode === 'type' ? typeInput.value.trim().length > 0 : strokes.length > 0;
+  }
+
+  // Paints the signature itself. Shared by the on-screen canvas and the PNG export,
+  // so what the applicant sees is exactly what gets submitted.
+  function paintInk(c, w, h) {
+    c.lineCap = 'round';
+    c.lineJoin = 'round';
+    c.strokeStyle = INK;
+    c.fillStyle = INK;
+
+    if (mode === 'type') {
+      var name = typeInput.value.trim();
+      if (!name) return;
+      var size = 54;
+      var maxWidth = w - 96;
+      c.textBaseline = 'alphabetic';
+      c.font = 'italic ' + size + 'px ' + SCRIPT_FONT;
+      while (c.measureText(name).width > maxWidth && size > 16) {
+        size -= 2;
+        c.font = 'italic ' + size + 'px ' + SCRIPT_FONT;
+      }
+      c.fillText(name, 48, h - 62);
+      return;
+    }
+
+    c.lineWidth = 2.4;
+    strokes.forEach(function (stroke) {
+      if (stroke.length === 1) {
+        c.beginPath();
+        c.arc(stroke[0].x, stroke[0].y, 1.4, 0, Math.PI * 2);
+        c.fill();
+        return;
+      }
+      c.beginPath();
+      c.moveTo(stroke[0].x, stroke[0].y);
+      for (var i = 1; i < stroke.length; i++) c.lineTo(stroke[i].x, stroke[i].y);
+      c.stroke();
+    });
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, width(), height());
+    paintInk(ctx, width(), height());
+    pad.classList.toggle('has-ink', hasSignature());
+  }
+
+  function resize() {
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.max(1, Math.round(width() * dpr));
+    canvas.height = Math.max(1, Math.round(height() * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    redraw();
+  }
+
+  function clearError() {
+    errorEl.classList.remove('visible');
+    pad.classList.remove('has-error');
+  }
+
+  function pointOf(e) {
+    var r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    if (mode !== 'draw') return;
+    e.preventDefault();
+    drawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    current = [pointOf(e)];
+    strokes.push(current);
+    clearError();
+    redraw();
+  });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!drawing) return;
+    current.push(pointOf(e));
+    redraw();
+  });
+  ['pointerup', 'pointercancel'].forEach(function (evt) {
+    canvas.addEventListener(evt, function () { drawing = false; current = null; });
+  });
+
+  // Focus ring on the pad while the applicant is working in it.
+  document.addEventListener('pointerdown', function (e) {
+    pad.classList.toggle('is-active', pad.contains(e.target));
+  });
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      mode = tab.dataset.mode;
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+      pad.classList.toggle('mode-type', mode === 'type');
+      pad.classList.toggle('mode-draw', mode === 'draw');
+      placeholder.textContent = mode === 'type'
+        ? 'Your typed signature will appear here'
+        : 'Sign here using your mouse, finger, or stylus';
+      hint.textContent = mode === 'type'
+        ? 'Type your full legal name below and it becomes your signature.'
+        : 'Draw your signature in the box above.';
+      clearError();
+      redraw();
+      if (mode === 'type') typeInput.focus();
+    });
+  });
+
+  typeInput.addEventListener('input', function () { clearError(); redraw(); });
+
+  document.getElementById('sigClear').addEventListener('click', function () {
+    strokes = [];
+    typeInput.value = '';
+    clearError();
+    redraw();
+  });
+
+  // Ink only, transparent, cropped to its bounding box — this is what gets
+  // stamped onto the signature line of the PDF.
+  function exportInkPNG() {
+    var w = width();
+    var h = height();
+    var scale = 3;
+    var big = document.createElement('canvas');
+    big.width = Math.round(w * scale);
+    big.height = Math.round(h * scale);
+    var b = big.getContext('2d');
+    b.scale(scale, scale);
+    paintInk(b, w, h);
+
+    var data = b.getImageData(0, 0, big.width, big.height).data;
+    var minX = big.width, minY = big.height, maxX = -1, maxY = -1;
+    for (var y = 0; y < big.height; y++) {
+      for (var x = 0; x < big.width; x++) {
+        if (data[(y * big.width + x) * 4 + 3] > 8) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    if (maxX < 0) return null;
+
+    var pad = 6;
+    minX = Math.max(0, minX - pad); minY = Math.max(0, minY - pad);
+    maxX = Math.min(big.width - 1, maxX + pad); maxY = Math.min(big.height - 1, maxY + pad);
+
+    var crop = document.createElement('canvas');
+    crop.width = maxX - minX + 1;
+    crop.height = maxY - minY + 1;
+    crop.getContext('2d').drawImage(big, minX, minY, crop.width, crop.height, 0, 0, crop.width, crop.height);
+    return crop.toDataURL('image/png');
+  }
+
+  function dataURLToBytes(dataUrl) {
+    var binary = atob(dataUrl.split(',')[1]);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+
+  // Renders the signature onto a white background at 2x for a crisp attachment.
+  function exportPNG() {
+    var w = width();
+    var h = height();
+    var scale = 2;
+    var out = document.createElement('canvas');
+    out.width = Math.round(w * scale);
+    out.height = Math.round(h * scale);
+    var o = out.getContext('2d');
+    o.fillStyle = '#ffffff';
+    o.fillRect(0, 0, out.width, out.height);
+    o.scale(scale, scale);
+    o.strokeStyle = '#b8c0cc';
+    o.lineWidth = 1;
+    o.beginPath();
+    o.moveTo(40, h - 52);
+    o.lineTo(w - 32, h - 52);
+    o.stroke();
+    paintInk(o, w, h);
+    return out.toDataURL('image/png');
+  }
+
+  function dataURLToFile(dataUrl, filename) {
+    var parts = dataUrl.split(',');
+    var mime = parts[0].match(/:(.*?);/)[1];
+    var binary = atob(parts[1]);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new File([bytes], filename, { type: mime });
+  }
+
+  var pdfInput = document.getElementById('app-pdf');
+  var pdfStatus = document.getElementById('pdf-status');
+  var submitBtn = document.querySelector('.btn-submit');
+  var sending = false;
+
+  function attach(input, file) {
+    var dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+  }
+
+  function safeFileName(base) {
+    return base.replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  // Fills the official PDF with everything typed into this form and attaches it
+  // to the submission, so the employer opens the real document.
+  function attachCompletedPDF() {
+    if (!window.MGApplicationPDF || !window.PDFLib) {
+      return Promise.reject(new Error('PDF generator not loaded'));
+    }
+    var ink = exportInkPNG();
+    return window.MGApplicationPDF.build(form, {
+      pngBytes: ink ? dataURLToBytes(ink) : null,
+      method: (mode === 'type' ? 'Typed' : 'Drawn'),
+      typedName: typeInput.value.trim()
+    }).then(function (bytes) {
+      var who = [
+        document.getElementById('last-name').value,
+        document.getElementById('first-name').value
+      ].filter(Boolean).join(' ');
+      var name = safeFileName('Employment Application' + (who ? ' - ' + who : '')) + '.pdf';
+      attach(pdfInput, new File([bytes], name, { type: 'application/pdf' }));
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    if (sending) return;
+    e.preventDefault();
+
+    if (!hasSignature()) {
+      errorEl.classList.add('visible');
+      pad.classList.add('has-error');
+      pad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    methodInput.value = (mode === 'type' ? 'Typed' : 'Drawn');
+    typedNameInput.value = (mode === 'type' ? typeInput.value.trim() : '(signed by hand)');
+
+    var dataUrl = exportPNG();
+    try {
+      attach(fileInput, dataURLToFile(dataUrl, 'signature.png'));
+    } catch (err) {
+      // Older browsers may refuse programmatic file assignment — send the image
+      // as a data URL instead so the signature is never lost.
+      fallbackInput.value = dataUrl;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Preparing your application...';
+
+    // The application is submitted either way: a PDF failure must never cost
+    // the applicant everything they typed, since all answers are sent as
+    // individual fields too.
+    attachCompletedPDF()
+      .then(function () { pdfStatus.value = 'Yes'; })
+      .catch(function (err) {
+        pdfStatus.value = 'No - ' + (err && err.message ? err.message : 'unknown error');
+      })
+      .then(function () {
+        sending = true;
+        form.submit();
+      });
+  });
+
+  window.addEventListener('resize', resize);
+  resize();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
+
+  // The PDF builder needs the signature; expose just enough for it.
+  window.MGSignature = {
+    isSigned: hasSignature,
+    inkPNG: exportInkPNG,
+    method: function () { return mode === 'type' ? 'Typed' : 'Drawn'; },
+    typedName: function () { return typeInput.value.trim(); }
+  };
+
+  // Warm the blank PDF so submitting stays fast.
+  window.addEventListener('load', function () {
+    if (window.MGApplicationPDF) window.MGApplicationPDF.preload().catch(function () {});
+  });
+})();
+</script>
+
+</body>
+</html>

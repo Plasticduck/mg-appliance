@@ -15,6 +15,8 @@ const hero = load('hero.json');
 const about = load('about.json');
 const gallery = load('gallery.json');
 const testimonials = load('testimonials.json');
+const financing = load('financing.json');
+const locations = load('locations.json');
 const cta = load('cta.json');
 
 // Helpers
@@ -40,6 +42,46 @@ const reviewCards = testimonials.reviews.map((r, i) => {
         <div class="test-detail">${esc(r.source)}</div>
       </div>`;
 }).join('\n');
+
+// Financing options
+const financingCards = financing.options.map((opt, i) => {
+  const delay = ['reveal-d1','reveal-d2','reveal-d3'][i % 3];
+  const logoH = opt.logo_height || 56;
+  const logo = opt.logo ? `\n        <div class="finance-logo-wrap"><img class="finance-logo" src="${esc(opt.logo)}" alt="${esc(opt.name)}" style="height:${logoH}px"></div>` : '';
+  return `      <a href="${esc(opt.url)}" class="finance-card reveal ${delay}" target="_blank" rel="noopener">${logo}
+        <span class="finance-name">${esc(opt.name)}</span>
+        <span class="finance-cta">Apply Now &#8594;</span>
+      </a>`;
+}).join('\n');
+
+// Location cards for contact section
+const locationCards = locations.locations.map((loc, i) => {
+  const delay = i === 0 ? 'reveal-d1' : 'reveal-d2';
+  const disclaimer = loc.disclaimer ? `\n            <p class="location-disclaimer">${esc(loc.disclaimer)}</p>` : '';
+  return `        <div class="location-card reveal ${delay}">
+          <h3 class="location-name">${esc(loc.name)}</h3>${disclaimer}
+          <div class="contact-row">
+            <h4>Address</h4>
+            <p>${esc(loc.address)}</p>
+          </div>
+          <div class="contact-row">
+            <h4>Phone</h4>
+            <p><a href="tel:${esc(loc.phone_raw)}">${esc(loc.phone)}</a></p>
+          </div>
+          <div class="contact-row">
+            <h4>Hours</h4>
+            <p>${nl2br(loc.hours)}</p>
+          </div>
+        </div>`;
+}).join('\n');
+
+// Location picker modal options
+const locationPickerOptions = locations.locations.map(loc =>
+  `      <a href="tel:${esc(loc.phone_raw)}" class="picker-option">
+        <span class="picker-name">${esc(loc.name)}</span>
+        <span class="picker-phone">${esc(loc.phone)}</span>
+      </a>`
+).join('\n');
 
 // About stats
 const statsHTML = about.stats.map(s =>
@@ -159,7 +201,7 @@ nav {
   letter-spacing: -0.02em; color: var(--white);
   margin-bottom: 24px;
 }
-.hero h1 span { color: var(--yellow); }
+.hero h1 span { color: var(--yellow); display: block; }
 .hero p {
   font-size: 1.2rem; color: rgba(255,255,255,0.85);
   margin-bottom: 40px; font-weight: 400; max-width: 520px;
@@ -234,6 +276,8 @@ section { padding: clamp(64px, 8vw, 120px) 24px; }
 }
 .gallery-item:hover img { transform: scale(1.04); }
 .gallery-item:nth-child(1) { grid-column: span 2; }
+.gallery-dots { display: none; }
+.gallery-hint { display: none; }
 
 /* Lightbox */
 .lightbox {
@@ -284,6 +328,39 @@ section { padding: clamp(64px, 8vw, 120px) 24px; }
 .test-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
 .test-detail { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
+/* ========== FINANCING ========== */
+.financing-section { background: var(--bg); }
+.financing-header { text-align: center; margin-bottom: 48px; }
+.financing-header .section-sub { margin: 0 auto; }
+.finance-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.finance-card {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 32px 24px;
+  background: var(--white);
+  border: 1px solid var(--border); border-radius: 10px;
+  text-decoration: none; transition: border-color 0.3s, box-shadow 0.3s;
+}
+.finance-card:hover {
+  border-color: var(--blue); box-shadow: 0 4px 16px rgba(26,80,150,0.1);
+}
+.finance-logo-wrap {
+  height: 170px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.finance-logo {
+  width: auto; max-width: 280px;
+  object-fit: contain;
+}
+.finance-name {
+  font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 16px;
+}
+.finance-cta {
+  font-size: 0.88rem; font-weight: 600; color: var(--blue);
+  margin-top: auto;
+}
+
 /* ========== CTA BANNER ========== */
 .cta-banner {
   background: var(--blue-dark);
@@ -297,12 +374,81 @@ section { padding: clamp(64px, 8vw, 120px) 24px; }
 }
 .cta-content p { color: rgba(255,255,255,0.8); margin-bottom: 28px; font-size: 1.05rem; }
 
+/* ========== CAREERS ========== */
+.careers-section { background: var(--white); }
+.careers-inner {
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 44px;
+}
+.careers-text .section-sub { margin-bottom: 24px; }
+.careers-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.careers-points li {
+  font-size: 0.92rem; color: var(--text);
+  padding-left: 26px; position: relative;
+}
+.careers-points li::before {
+  content: "\\2713"; position: absolute; left: 0; top: -1px;
+  color: var(--blue); font-weight: 700;
+}
+.careers-cta { text-align: center; }
+.careers-cta h3 {
+  font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 6px;
+}
+.careers-cta p { font-size: 0.88rem; color: var(--text-light); margin-bottom: 20px; }
+.careers-cta .btn { width: 100%; }
+.careers-note { font-size: 0.8rem; color: var(--text-light); margin-top: 14px; }
+
 /* ========== CONTACT ========== */
 .contact-section { background: var(--white); }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+.locations-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  margin-bottom: 12px;
 }
-.contact-info .section-sub { margin-bottom: 36px; }
+.location-card {
+  padding: 32px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px;
+}
+.location-name {
+  font-size: 1.15rem; font-weight: 700; color: var(--dark);
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--yellow);
+}
+.location-disclaimer {
+  background: #fff3cd; color: #856404; padding: 10px 14px;
+  border-radius: 6px; font-size: 0.85rem; font-weight: 500;
+  margin-bottom: 16px; line-height: 1.5;
+}
+
+/* Location picker modal */
+.location-picker {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.6);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.location-picker.active { display: flex; }
+.picker-box {
+  background: var(--white); border-radius: 12px; padding: 36px;
+  max-width: 400px; width: 100%; position: relative; text-align: center;
+}
+.picker-box h3 {
+  font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 24px;
+}
+.picker-close {
+  position: absolute; top: 12px; right: 16px;
+  background: none; border: none; font-size: 1.5rem;
+  color: var(--text-light); cursor: pointer; line-height: 1;
+}
+.picker-option {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 20px; margin-bottom: 12px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  text-decoration: none; transition: border-color 0.25s;
+}
+.picker-option:hover { border-color: var(--blue); }
+.picker-option:last-child { margin-bottom: 0; }
+.picker-name { font-weight: 600; color: var(--dark); font-size: 1rem; }
+.picker-phone { color: var(--blue); font-weight: 600; font-size: 0.95rem; }
 .contact-row { margin-bottom: 24px; }
 .contact-row h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
 .contact-row p { font-size: 0.9rem; color: var(--text-light); }
@@ -407,10 +553,14 @@ footer {
   .mobile-toggle { display: flex; }
   nav { padding: 20px 24px; }
   .hero-inner { grid-template-columns: 1fr; padding: 120px 24px 48px; gap: 32px; }
-  .hero-content { text-align: center; }
-  .hero-btns { justify-content: center; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero h1 span { display: inline; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .hero-content { text-align: left; }
+  .hero-btns { justify-content: flex-start; }
+  .about-grid, .contact-grid, .locations-grid { grid-template-columns: 1fr; gap: 36px; }
+  .careers-inner { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .finance-grid { grid-template-columns: 1fr; }
   .gallery-item:nth-child(1) { grid-column: span 2; }
   .nav-logo img { height: 56px; }
   .test-grid { grid-template-columns: 1fr; }
@@ -420,14 +570,25 @@ footer {
 @media (max-width: 600px) {
   .gallery-grid {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 12px; padding-bottom: 12px;
+    gap: 12px; padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
+    padding-left: 24px; padding-right: 24px;
   }
   .gallery-item {
-    flex: 0 0 80vw; scroll-snap-align: start;
+    flex: 0 0 72vw; scroll-snap-align: start;
     aspect-ratio: 4/3;
   }
   .gallery-item:nth-child(1) { grid-column: unset; }
+  .gallery-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+  .gallery-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); transition: background 0.3s;
+  }
+  .gallery-dot.active { background: var(--blue); }
+  .gallery-hint {
+    display: block; text-align: center; margin-top: 8px;
+    font-size: 0.78rem; color: var(--text-light); letter-spacing: 0.03em;
+  }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; }
   .about-stats { flex-direction: column; gap: 20px; }
@@ -450,7 +611,8 @@ footer {
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="tel:${esc(settings.phone_raw)}" class="nav-cta">Call Now</a></li>
+      <li><a href="apply.html">Careers</a></li>
+      <li><a href="#" class="nav-cta" onclick="openLocationPicker(event)">Call Now</a></li>
     </ul>
     <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -462,7 +624,7 @@ footer {
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <h1>${esc(hero.headline)}<br><span>${esc(hero.headline_highlight)}</span></h1>
+      <h1>${esc(hero.headline)} <span>${esc(hero.headline_highlight)}</span></h1>
       <p>${esc(hero.description)}</p>
       <div class="hero-btns">
         <a href="${esc(hero.cta1_link)}" class="btn btn-yellow">${esc(hero.cta1_text)}</a>
@@ -502,9 +664,11 @@ ${statsHTML}
       <h2 class="section-title reveal">${esc(gallery.title)}</h2>
       <p class="section-sub reveal">${esc(gallery.description)}</p>
     </div>
-    <div class="gallery-grid">
+    <div class="gallery-grid" id="galleryGrid">
 ${galleryItems}
     </div>
+    <div class="gallery-dots" id="galleryDots"></div>
+    <p class="gallery-hint">Swipe to see more &#8594;</p>
   </div>
 </section>
 
@@ -515,6 +679,20 @@ ${galleryItems}
   <img id="lightboxImg" src="" alt="Gallery image">
   <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
 </div>
+
+<!-- FINANCING -->
+<section class="financing-section" id="financing">
+  <div class="container">
+    <div class="financing-header">
+      <div class="section-tag reveal">${esc(financing.tag)}</div>
+      <h2 class="section-title reveal">${esc(financing.title)}</h2>
+      <p class="section-sub reveal">${esc(financing.description)}</p>
+    </div>
+    <div class="finance-grid">
+${financingCards}
+    </div>
+  </div>
+</section>
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="reviews">
@@ -535,79 +713,108 @@ ${reviewCards}
   <div class="cta-content reveal">
     <h2>${esc(cta.title)}</h2>
     <p>${esc(cta.description)}</p>
-    <a href="${esc(cta.button_link)}" class="btn btn-yellow">${esc(cta.button_text)}</a>
+    <a href="#" class="btn btn-yellow" onclick="openLocationPicker(event)">${esc(cta.button_text)}</a>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section class="careers-section" id="careers">
+  <div class="container">
+    <div class="careers-inner reveal">
+      <div class="careers-text">
+        <div class="section-tag">Join Our Team</div>
+        <h2 class="section-title">Now hiring at both locations.</h2>
+        <p class="section-sub">We're a family-owned business that treats our team like family. If you take pride in honest work and great customer service, we'd like to hear from you.</p>
+        <ul class="careers-points">
+          <li>Sales, service, delivery &amp; repair positions</li>
+          <li>Fort Worth and Wichita Falls locations</li>
+          <li>Full-time and part-time opportunities</li>
+        </ul>
+      </div>
+      <div class="careers-cta">
+        <h3>Apply online</h3>
+        <p>Complete our employment application in a few minutes.</p>
+        <a href="apply.html" class="btn btn-blue">Start Your Application</a>
+        <p class="careers-note">MG Appliance is an equal opportunity employer.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="section-tag reveal">Contact Us</div>
-        <h2 class="section-title reveal">Let's talk appliances.</h2>
-        <p class="section-sub reveal">Have a question about pricing, availability, or need to schedule a repair? Reach out — we're happy to help.</p>
-        <div class="reveal">
-          <div class="contact-row">
-            <h4>Address</h4>
-            <p>${esc(settings.address)}</p>
+    <div class="contact-header" style="text-align:center; margin-bottom:48px;">
+      <div class="section-tag reveal">Contact Us</div>
+      <h2 class="section-title reveal">Let's talk appliances.</h2>
+      <p class="section-sub reveal" style="margin:0 auto;">Have a question about pricing, availability, or need to schedule a repair? Reach out — we're happy to help.</p>
+    </div>
+    <div class="locations-grid reveal">
+${locationCards}
+    </div>
+    <div class="contact-row reveal" style="text-align:center; margin-top:24px;">
+      <h4>Follow Us</h4>
+      <p><a href="${esc(settings.facebook_url)}" target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+    <div class="contact-form-wrap reveal" style="max-width:600px; margin:48px auto 0;">
+      <h3 style="font-size:1.2rem; font-weight:700; color:var(--dark); margin-bottom:20px; text-align:center;">Send us a message</h3>
+      <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="contact">
+        <input type="hidden" name="bot-field" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
           </div>
-          <div class="contact-row">
-            <h4>Phone</h4>
-            <p><a href="tel:${esc(settings.phone_raw)}">${esc(settings.phone)}</a></p>
-          </div>
-          <div class="contact-row">
-            <h4>Hours</h4>
-            <p>${nl2br(settings.hours)}</p>
-          </div>
-          <div class="contact-row">
-            <h4>Follow Us</h4>
-            <p><a href="${esc(settings.facebook_url)}" target="_blank" rel="noopener">Facebook</a></p>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your phone number">
           </div>
         </div>
-      </div>
-      <div class="reveal">
-        <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="form-name" value="contact">
-          <input type="hidden" name="bot-field" style="display:none">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required placeholder="Your name">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="Your phone number">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required placeholder="you@example.com">
-          </div>
-          <div class="form-group">
-            <label for="interest">I'm interested in...</label>
-            <select id="interest" name="interest">
-              <option value="">Select an option</option>
-              <option value="refrigerator">Refrigerators</option>
-              <option value="washer-dryer">Washers & Dryers</option>
-              <option value="range-oven">Ranges, Stoves & Ovens</option>
-              <option value="dishwasher">Dishwashers</option>
-              <option value="repair">Appliance Repair</option>
-              <option value="other">Other / General Question</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Tell us what you're looking for..."></textarea>
-          </div>
-          <button type="submit" class="form-submit" id="formBtn">Send Message</button>
-          <div class="form-success" id="formSuccess">Thanks! Your message has been sent. We'll get back to you soon.</div>
-          <div class="form-error" id="formError">Something went wrong. Please call us at ${esc(settings.phone)} instead.</div>
-        </form>
-      </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <select id="location" name="location">
+            <option value="">Select a location</option>
+            <option value="fort-worth">Fort Worth</option>
+            <option value="wichita-falls">Wichita Falls</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="interest">I'm interested in...</label>
+          <select id="interest" name="interest">
+            <option value="">Select an option</option>
+            <option value="refrigerator">Refrigerators</option>
+            <option value="washer-dryer">Washers & Dryers</option>
+            <option value="range-oven">Ranges, Stoves & Ovens</option>
+            <option value="dishwasher">Dishwashers</option>
+            <option value="repair">Appliance Repair</option>
+            <option value="other">Other / General Question</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required placeholder="Tell us what you're looking for..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="formBtn">Send Message</button>
+        <div class="form-success" id="formSuccess">Thanks! Your message has been sent. We'll get back to you soon.</div>
+        <div class="form-error" id="formError">Something went wrong. Please call us directly instead.</div>
+      </form>
     </div>
   </div>
 </section>
+
+<!-- LOCATION PICKER -->
+<div class="location-picker" id="locationPicker">
+  <div class="picker-box">
+    <button class="picker-close" onclick="closeLocationPicker()">&times;</button>
+    <h3>Which location are you calling?</h3>
+${locationPickerOptions}
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -625,6 +832,7 @@ ${reviewCards}
         <a href="#gallery">Gallery</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
+        <a href="apply.html">Careers &amp; Job Application</a>
       </div>
       <div class="footer-col">
         <h4>Products & Services</h4>
@@ -634,9 +842,10 @@ ${reviewCards}
         <a href="#contact">Appliance Repair</a>
       </div>
       <div class="footer-col">
-        <h4>Connect</h4>
+        <h4>Locations</h4>
+        <a href="tel:${esc(locations.locations[0].phone_raw)}">Fort Worth: ${esc(locations.locations[0].phone)}</a>
+        <a href="tel:${esc(locations.locations[1].phone_raw)}">Wichita Falls: ${esc(locations.locations[1].phone)}</a>
         <a href="${esc(settings.facebook_url)}" target="_blank" rel="noopener">Facebook</a>
-        <a href="tel:${esc(settings.phone_raw)}">${esc(settings.phone)}</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -647,6 +856,20 @@ ${reviewCards}
 </footer>
 
 <script>
+// Location picker
+function openLocationPicker(e) {
+  e.preventDefault();
+  document.getElementById('locationPicker').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLocationPicker() {
+  document.getElementById('locationPicker').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('locationPicker').addEventListener('click', function(e) {
+  if (e.target === this) closeLocationPicker();
+});
+
 // Mobile menu toggle
 document.getElementById('mobileToggle').addEventListener('click', function() {
   document.getElementById('navLinks').classList.toggle('open');
@@ -715,6 +938,26 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') navLightbox(-1);
   if (e.key === 'ArrowRight') navLightbox(1);
 });
+
+// Gallery scroll dots
+(function() {
+  var grid = document.getElementById('galleryGrid');
+  var dotsWrap = document.getElementById('galleryDots');
+  var items = grid.querySelectorAll('.gallery-item');
+  if (window.innerWidth > 600 || items.length === 0) return;
+  items.forEach(function(_, i) {
+    var dot = document.createElement('span');
+    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+    dotsWrap.appendChild(dot);
+  });
+  var dots = dotsWrap.querySelectorAll('.gallery-dot');
+  grid.addEventListener('scroll', function() {
+    var scrollLeft = grid.scrollLeft;
+    var itemWidth = items[0].offsetWidth + 12;
+    var idx = Math.round(scrollLeft / itemWidth);
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+  });
+})();
 
 // Netlify Identity redirect after login
 if (window.netlifyIdentity) {

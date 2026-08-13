@@ -1,0 +1,20 @@
+{
+  "locations": [
+    {
+      "name": "Fort Worth",
+      "address": "2513 Warfield Ave, Fort Worth, TX 76106",
+      "phone": "682-841-1440",
+      "phone_raw": "6828411440",
+      "hours": "Mon – Sat: 9:00 AM – 6:00 PM\nSunday: Closed",
+      "disclaimer": ""
+    },
+    {
+      "name": "Wichita Falls",
+      "address": "1912 9th St, Wichita Falls, TX 76301",
+      "phone": "940-500-4092",
+      "phone_raw": "9405004092",
+      "hours": "Mon – Sat: 9:00 AM – 6:00 PM\nSunday: Closed",
+      "disclaimer": "Currently Appt Only due to short staff."
+    }
+  ]
+}

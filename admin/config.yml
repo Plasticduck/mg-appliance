@@ -6,6 +6,25 @@ media_folder: "gallery"
 public_folder: "gallery"
 
 collections:
+  # ── Locations ──
+  - name: "locations"
+    label: "Locations"
+    files:
+      - name: "locations"
+        label: "Store Locations"
+        file: "content/locations.json"
+        fields:
+          - label: "Locations"
+            name: "locations"
+            widget: "list"
+            fields:
+              - { label: "Location Name", name: "name", widget: "string" }
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Phone (display)", name: "phone", widget: "string", hint: "e.g. 682-841-1440" }
+              - { label: "Phone (raw digits)", name: "phone_raw", widget: "string", hint: "Digits only, e.g. 6828411440" }
+              - { label: "Hours", name: "hours", widget: "text" }
+              - { label: "Disclaimer", name: "disclaimer", widget: "string", required: false, hint: "Optional notice, e.g. Currently Appt Only due to short staff." }
+
   # ── Business Settings ──
   - name: "settings"
     label: "Business Info"
@@ -99,6 +118,25 @@ collections:
               - { label: "Quote", name: "quote", widget: "text" }
               - { label: "Customer Name", name: "name", widget: "string" }
               - { label: "Source", name: "source", widget: "string", default: "Google Review" }
+
+  # ── Financing ──
+  - name: "financing"
+    label: "Financing"
+    files:
+      - name: "financing"
+        label: "Financing Options"
+        file: "content/financing.json"
+        fields:
+          - { label: "Section Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - label: "Options"
+            name: "options"
+            widget: "list"
+            fields:
+              - { label: "Provider Name", name: "name", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
+              - { label: "Application URL", name: "url", widget: "string" }
 
   # ── CTA Banner ──
   - name: "cta"
